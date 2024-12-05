@@ -144,7 +144,7 @@ def ppt_llm():
         final_text = ""
         combined_segment = ""
         max_length = 10000
-        print(len(result))
+        # print(len(result))
         final_compress = []
         i = 0
         while i < len(result):
@@ -155,7 +155,7 @@ def ppt_llm():
                 i += 1
             final_compress.append(temp_text)
 
-        print(len(final_compress))
+        # print(len(final_compress))
         for segment in final_compress:
             if len(combined_segment) + len(segment) <= max_length:
                 combined_segment += segment
@@ -176,7 +176,7 @@ def ppt_llm():
                 )
 
                 print("--------------------------------------------")
-                print(chat_completion.choices[0].message.content)
+                # print(chat_completion.choices[0].message.content)
                 # print(len(combined_segment))
                 print("--------------------------------------------")
                 final_text += chat_completion.choices[0].message.content
@@ -199,12 +199,12 @@ def ppt_llm():
             )
 
             print("--------------------------------------------")
-            print(chat_completion.choices[0].message.content)
+            # print(chat_completion.choices[0].message.content)
             # print(len(combined_segment))
             print("--------------------------------------------")
             final_text += chat_completion.choices[0].message.content
 
-        print(final_text)
+        # print(final_text)
         response = repair_json(final_text)
         return jsonify({"slides": response}), 200
 

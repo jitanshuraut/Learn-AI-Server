@@ -63,7 +63,7 @@ def content_Repair(text, client):
             )
 
             print("--------------------------------------------")
-            print(chat_completion.choices[0].message.content)
+            # print(chat_completion.choices[0].message.content)
             print("--------------------------------------------")
             final_text += chat_completion.choices[0].message.content
             combined_segment = segment
@@ -89,7 +89,7 @@ def content_Repair(text, client):
         )
 
         print("--------------------------------------------")
-        print(chat_completion.choices[0].message.content)
+        # print(chat_completion.choices[0].message.content)
         print("--------------------------------------------")
         final_text += chat_completion.choices[0].message.content
 

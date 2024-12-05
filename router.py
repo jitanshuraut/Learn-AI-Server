@@ -12,7 +12,7 @@ def Genrate_Topic_SubTopic(model, text):
         response_dict = json.loads(clean_response)
         dominant_topic = response_dict.get("dominant_subject")
         subtopics = response_dict.get("subtopics", [])
-        print(dominant_topic, subtopics)
+        # print(dominant_topic, subtopics)
         return dominant_topic, subtopics
     except json.JSONDecodeError as e:
         print(f"Failed to decode JSON: {e}")
