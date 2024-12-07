@@ -32,11 +32,11 @@ client = Groq(api_key=os.environ.get("GROQ_API_KEY"))
 def course_genration_module():
 
     try:
-        data = await request.read()  
-        unpacked_data = msgpack.unpackb(data)  
-        module = str(unpacked_data.get('module'))
-        course = str(unpacked_data.get('course'))
-        topic = str(unpacked_data.get('topic'))
+        data = msgpack.unpackb(request.data, raw=False)
+        module = str(data.get('module'))
+        course = str(data.get('course'))
+        topic = str(data.get('topic'))
+        subtopics_arr = data.get('subtopics')
         subtopics = ", ".join(subtopics_arr)
 
         print(module)
