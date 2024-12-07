@@ -63,7 +63,7 @@ def course_genration_module():
             out_line_2 = Miscellaneous_model.generate_content(
                 Genrate_Module(module, course, subtopics))
 
-        final_text = content_Repair(out_line_2.text, client)
+        # final_text = content_Repair(out_line_2.text, client)
         return Response(msgpack.packb({"content": str(final_text)}), content_type='application/x-msgpack'), 200
     except Exception as e:
         print(e)
