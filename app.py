@@ -39,10 +39,10 @@ def course_genration_module():
         subtopics_arr = data.get('subtopics')
         subtopics = ", ".join(subtopics_arr)
 
-        print(module)
-        print(course)
-        print(topic)
-        print(subtopics)
+        # print(module)
+        # print(course)
+        # print(topic)
+        # print(subtopics)
 
 
 
