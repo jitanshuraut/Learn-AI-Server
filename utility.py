@@ -64,9 +64,9 @@ def content_Repair(text, client):
                 model="llama-3.1-70b-versatile",
             )
 
-            print("--------------------------------------------")
-            print(chat_completion.choices[0].message.content)
-            print("--------------------------------------------")
+            # print("--------------------------------------------")
+            # print(chat_completion.choices[0].message.content)
+            # print("--------------------------------------------")
             final_text += chat_completion.choices[0].message.content
             combined_segment = segment
 
@@ -90,9 +90,9 @@ def content_Repair(text, client):
             model="llama-3.1-70b-versatile",
         )
 
-        print("--------------------------------------------")
-        print(chat_completion.choices[0].message.content)
-        print("--------------------------------------------")
+        # print("--------------------------------------------")
+        # print(chat_completion.choices[0].message.content)
+        # print("--------------------------------------------")
         final_text += chat_completion.choices[0].message.content
 
     return final_text
