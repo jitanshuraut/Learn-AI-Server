@@ -1,35 +1,3 @@
-def Generate_Content_Headers(module_name,course):
-    return f"""
-You are a course content generation assistant. Your task is to analyze the given module name: "{module_name}" and course :"{course}" and generate a list of relevant content headers or topics for this module. Follow these steps:
-
-1. Identify the core areas and themes related to the given module name.
-2. Break down the module into a structured list of specific content headers or topics, relevant to the module.
-3. Classify the module into one of the following categories based on its content:
-   - Programming
-   - Science
-   - Maths
-   - Miscellaneous
-4. Limit the list to a maximum of **6 headers**.
-5. Output the headers in an array format, such as:
-   ["Header 1", "Header 2", "Header 3", ...]
-
-Additionally:
-1. Include the full course name and module name to contextualize your output.
-2. Specify the identified category of the module.
-3. Provide the JSON format of the final output as follows:
-
-   {{
-       "course_name": "Course Name",
-       "module_name": "{module_name}",
-       "category": "Identified Category",
-       "content_headers": ["Header 1", "Header 2", "Header 3"]
-   }}
-"""
-
-def Query_Promt_LLama(query,content):
-    return  f"Provide a concise response (around 100 words) to the following query: {query}, using the information from the given content: {content}"
-
-
 def Promt_Genrate_topic(text):
     return f"""
 You are an advanced text analysis assistant. Your task is to identify the single dominant topic from the given input text: {text} and classify it under one of the following predefined subjects: Programming, Science, Maths, or Miscellaneous. Follow these steps:
@@ -49,6 +17,8 @@ You are an advanced text analysis assistant. Your task is to identify the single
        "subtopics": ["Subtopic 1", "Subtopic 2", "Subtopic 3"]
    }}
 """
+
+
 
 def Genrate_Outline(text, subtopics, domain):
     return f"""
@@ -78,16 +48,16 @@ Develop a comprehensive course  on the topic {text} focusing on subtopics {subto
 """
 
 
-def Genrate_Module(module, course):
+def Genrate_Module(module, course,header):
     return f"""
-Please generate a comprehensive learning resource of approximately 20,000 words for the {module} in the {course} course. The content should strictly focus on the topics outlined for {module} as per the course structure. Organize the material in a clear, book-like hierarchy with chapters, sections, and subsections. Ensure the resource is well-structured, detailed, and adheres to the following length and formatting guidelines.
+Please generate a comprehensive learning resource of approximately 5,000 words for Please generate a comprehensive and detailed learning resource for the topic "{header}" within the module "{module}" of the "{course}" course. The content should strictly focus on the "{header}" topic as per the context of "{module}" and "{course}" course. Organize the material in a clear, book-like hierarchy with chapters, sections, and subsections. Ensure the resource is well-structured, detailed, and adheres to the following length and formatting guidelines.
 Style Guidelines
 1 General Structure
 Use HTML for content formatting (skip <head> and <body> tags).
 Content should be styled professionally, mimicking the delivery of a seasoned educator, with:
 Clear explanations for concepts.
 Practical examples and scenarios.
-Technical depth relevant to {module} in the context of {course}.
+Technical depth relevant to {header} in the context of course: {course} and moduel : {module}.
 2 Headings and Subheadings
 Color and Size:
 Headings should use text color #8678F9.
