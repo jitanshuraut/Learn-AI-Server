@@ -6,3 +6,5 @@ Gunicorn
 json-repair
 groq
 httpx
+aiohttp
+msgpack
