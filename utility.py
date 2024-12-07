@@ -1,4 +1,42 @@
 import re
+import asyncio
+import aiohttp
+from promts import Genrate_Outline
+import msgpack
+
+
+async def call_api(session, endpoint, data):
+    packed_data = msgpack.packb(data)
+    async with session.post(endpoint, data=packed_data, headers={'Content-Type': 'application/x-msgpack'}) as response:
+        packed_response = await response.read()
+        unpacked_response = msgpack.unpackb(packed_response)
+        return unpacked_response
+
+
+def Model_caller(model, input_text, dominant_topic, subtopics):
+    subtopics_text = ", ".join(subtopics)
+    out_line = model.generate_content(Genrate_Outline(
+        input_text, subtopics_text, dominant_topic))
+    return out_line
+
+
+def LLama_Generate_Cover(model, query_prompt, sys_prompt="You are a helpful assistant."):
+    resp = model.chat.completions.create(
+        messages=[
+            {
+                "role": "system",
+                "content": sys_prompt,
+            },
+            {
+                "role": "user",
+                "content": query_prompt,
+            }
+        ],
+        model="llama-3.1-70b-versatile",
+    )
+    return resp.choices[0].message.content
+
+
 def segment_text(text, tag):
     segments = re.split(rf'(<{tag}.*?>.*?</{tag}>)', text, flags=re.DOTALL)
     result = []
@@ -17,8 +55,8 @@ def segment_text(text, tag):
     return result
 
 
-def content_Repair(text, client):
-    segments_h1 = segment_text(text, 'h1')
+def content_segmentation(content):
+    segments_h1 = segment_text(content, 'h1')
     segments_h2 = []
     segments_h3 = []
 
@@ -34,63 +72,4 @@ def content_Repair(text, client):
         result = segments_h2
     else:
         result = segments_h1
-
-    final_text = ""
-    combined_segment = ""
-    max_length = 128000
-
-    for segment in result:
-        if len(combined_segment) + len(segment) <= max_length:
-            combined_segment += segment
-        else:
-            chat_completion = client.chat.completions.create(
-                messages=[
-                    {
-                        "role": "system",
-                        "content": (
-                            "You are an assistant that specializes in enhancing the quality of content "
-                            "inside an HTML document. Improve the text content for better structure, clarity, and tone while keeping the original HTML structure unchanged. "
-                            "If any content appears incomplete or lacks detail, add relevant information to make it more comprehensive. "
-                            "Respond only with the improved HTML document and nothing else."
-                        )
-                    },
-                    {
-                        "role": "user",
-                        "content": f"Refine and enhance the content within this HTML structure, ensuring it is comprehensive, while preserving the tags. Only return the improved HTML: {combined_segment}"
-                    }
-                ],
-                model="llama-3.1-70b-versatile",
-            )
-
-            print("--------------------------------------------")
-            # print(chat_completion.choices[0].message.content)
-            print("--------------------------------------------")
-            final_text += chat_completion.choices[0].message.content
-            combined_segment = segment
-
-    if combined_segment:
-        chat_completion = client.chat.completions.create(
-            messages=[
-                {
-                    "role": "system",
-                    "content": (
-                        "You are an assistant that specializes in enhancing the quality of content "
-                        "inside an HTML document. Improve the text content for better structure, clarity, and tone while keeping the original HTML structure unchanged. "
-                        "If any content appears incomplete or lacks detail, add relevant information to make it more comprehensive. "
-                        "Respond only with the improved HTML document and nothing else."
-                    )
-                },
-                {
-                    "role": "user",
-                    "content": f"Refine and enhance the content within this HTML structure, ensuring it is comprehensive, while preserving the tags. Only return the improved HTML: {combined_segment}"
-                }
-            ],
-            model="llama-3.1-70b-versatile",
-        )
-
-        print("--------------------------------------------")
-        # print(chat_completion.choices[0].message.content)
-        print("--------------------------------------------")
-        final_text += chat_completion.choices[0].message.content
-
-    return final_text
+    return result
