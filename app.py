@@ -36,7 +36,7 @@ def course_genration_module():
         module = str(data.get('module'))
         course = str(data.get('course'))
         topic = str(data.get('topic'))
-        subtopics_arr = str(data.get('subtopics'))
+        subtopics_arr = str(data.get('subtopic'))
         subtopics =subtopics_arr
 
         # print(module)
