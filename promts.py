@@ -50,7 +50,7 @@ Develop a comprehensive course  on the topic {text} focusing on subtopics {subto
 
 def Genrate_Module(module, course,header):
     return f"""
-Please generate a comprehensive learning resource of approximately 5,000 words for Please generate a comprehensive and detailed learning resource for the topic "{header}" within the module "{module}" of the "{course}" course. The content should strictly focus on the "{header}" topic as per the context of "{module}" and "{course}" course. Organize the material in a clear, book-like hierarchy with chapters, sections, and subsections. Ensure the resource is well-structured, detailed, and adheres to the following length and formatting guidelines.
+Create a detailed and focused learning resource of approximately 3,000 words for the topic '{header}' within the module '{module}' of the '{course}' course. The content should concentrate solely on the '{header}' topic, ensuring it aligns with the context of the module and course. Avoid covering unrelated foundational concepts; assume the reader is already familiar with the prior topics in the course. Structure the material with clear chapters, sections, and subsections, presenting all relevant aspects of the header in a well-organized, reader-focused manner.
 Style Guidelines
 1 General Structure
 Use HTML for content formatting (skip <head> and <body> tags).

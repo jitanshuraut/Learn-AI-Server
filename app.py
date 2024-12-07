@@ -42,7 +42,7 @@ def course_genration_module():
         # print(module)
         # print(course)
         # print(topic)
-        # print(subtopics)
+        print(subtopics)
 
 
 
