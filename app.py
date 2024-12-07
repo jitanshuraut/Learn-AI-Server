@@ -66,7 +66,7 @@ def course_genration_module():
         final_text = content_Repair(out_line_2.text, client)
         return Response(msgpack.packb({"content": str(final_text)}), content_type='application/x-msgpack'), 200
     except Exception as e:
-
+        print(e)
         return Response(msgpack.packb({"error": "An error occurred, you may have reached the rate limit"}), content_type='application/x-msgpack'), 500
         # return jsonify({"error": e}), 500
 
