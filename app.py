@@ -38,6 +38,13 @@ def course_genration_module():
         subtopics_arr = (request.json.get('subtopics'))
         subtopics = ", ".join(subtopics_arr)
 
+        print(module)
+        print(course)
+        print(topic)
+        print(subtopics)
+
+
+
         if topic == "Programming":
             print("Programming")
             out_line_2 = Programing_model.generate_content(
