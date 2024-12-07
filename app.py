@@ -32,10 +32,11 @@ client = Groq(api_key=os.environ.get("GROQ_API_KEY"))
 def course_genration_module():
 
     try:
-        module = str(request.json.get('module'))
-        course = str(request.json.get('course'))
-        topic = str(request.json.get('topic'))
-        subtopics_arr = (request.json.get('subtopics'))
+        data = await request.read()  
+        unpacked_data = msgpack.unpackb(data)  
+        module = str(unpacked_data.get('module'))
+        course = str(unpacked_data.get('course'))
+        topic = str(unpacked_data.get('topic'))
         subtopics = ", ".join(subtopics_arr)
 
         print(module)
@@ -65,6 +66,7 @@ def course_genration_module():
         final_text = content_Repair(out_line_2.text, client)
         return Response(msgpack.packb({"content": str(final_text)}), content_type='application/x-msgpack'), 200
     except Exception as e:
+
         return Response(msgpack.packb({"error": "An error occurred, you may have reached the rate limit"}), content_type='application/x-msgpack'), 500
         # return jsonify({"error": e}), 500
 
