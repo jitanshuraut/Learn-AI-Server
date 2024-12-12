@@ -77,7 +77,7 @@ def ppt_llm():
         data = msgpack.unpackb(request.data, raw=False)
         content = str(data.get('content'))
         prompt = ppt_genration(content)
-        print(prompt)
+        # print(prompt)
         chat_completion = client.chat.completions.create(
             messages=[
                 {
@@ -93,11 +93,11 @@ def ppt_llm():
         )
 
         print("--------------------------------------------")
-        print(chat_completion.choices[0].message.content)
+        # print(chat_completion.choices[0].message.content)
         # print(len(combined_segment))
         print("--------------------------------------------")
         final_text = chat_completion.choices[0].message.content
-        print(final_text)
+        # print(final_text)
         response = repair_json(final_text)
         return Response(msgpack.packb({"slides": response}), content_type='application/x-msgpack'), 200
 
