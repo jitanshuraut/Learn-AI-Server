@@ -76,6 +76,7 @@ def ppt_llm():
     try:
         content = str(request.json.get('content'))
         prompt = ppt_genration(content)
+        print(prompt)
         chat_completion = client.chat.completions.create(
             messages=[
                 {
@@ -84,7 +85,7 @@ def ppt_llm():
                 },
                 {
                     "role": "user",
-                            "content": prompt,
+                    "content": str(prompt),
                 }
             ],
             model="llama-3.1-70b-versatile",
