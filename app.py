@@ -74,7 +74,8 @@ def course_genration_module():
 @app.route('/v1/ppt-content', methods=['POST'])
 def ppt_llm():
     try:
-        content = str(request.json.get('content'))
+        data = msgpack.unpackb(request.data, raw=False)
+        content = str(data.get('content'))
         prompt = ppt_genration(content)
         print(prompt)
         chat_completion = client.chat.completions.create(
@@ -101,6 +102,7 @@ def ppt_llm():
         return Response(msgpack.packb({"slides": response}), content_type='application/x-msgpack'), 200
 
     except Exception as e:
+        print(e)
         return Response(msgpack.packb({"error": str(e)}), content_type='application/x-msgpack'), 500
 
 
