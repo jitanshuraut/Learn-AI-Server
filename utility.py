@@ -9,7 +9,7 @@ async def call_api(session, endpoint, data):
     packed_data = msgpack.packb(data)
     async with session.post(endpoint, data=packed_data, headers={'Content-Type': 'application/x-msgpack'}) as response:
         packed_response = await response.read()
-        unpacked_response = msgpack.unpackb(packed_response)
+        unpacked_response = msgpack.unpackb(packed_response, raw=False)
         return unpacked_response
 
 

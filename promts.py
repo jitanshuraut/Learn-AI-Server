@@ -26,8 +26,8 @@ Additionally:
    }}
 """
 
-def Query_Promt_LLama(query,content):
-    return  f"Provide a concise response (around 100 words) to the following query: {query}, using the information from the given content: {content}"
+def Query_Promt_LLama(query):
+    return  f"Provide a concise response (around 100 words) to the following query: {query}"
 
 
 def Promt_Genrate_topic(text):
